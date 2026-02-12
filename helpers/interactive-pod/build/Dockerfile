@@ -1,5 +1,9 @@
 FROM python:3.12-slim AS base
 
+# Add PCP upstream repository
+RUN apt-get update && apt-get install -y curl gnupg && \
+    curl -s https://packagecloud.io/install/repositories/performancecopilot/pcp/script.deb.sh | bash
+
 RUN apt-get update && apt-get install -y git \
     # requests
     openssl \
@@ -26,6 +30,8 @@ RUN apt-get update && apt-get install -y git \
     htop \
     btop \
     fio \
+    pcp \
+    bpftrace \
     # cluster management + logs
     kubectl \
     less \
